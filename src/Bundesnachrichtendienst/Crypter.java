@@ -60,7 +60,7 @@ public interface Crypter {
     /**
      * Entschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
      *
-     * @param cypherTexte
+     * @param CypherMessages
      *            Nachrichten, die entschlüsselt werden soll.
      *
      * @return entschlüsselte Texte.
@@ -68,6 +68,6 @@ public interface Crypter {
      *             Wird geworfen, wenn Probleme mit der Verschlüsselung
      *             auftreten.
      */
-    public List<String> decrypt(List<String> cypherTexte)
+    public List<String> decrypt(List<String> CypherMessages)
             throws CrypterException;
 }

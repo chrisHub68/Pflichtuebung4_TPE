@@ -1,5 +1,9 @@
 package Bundesnachrichtendienst;
 
-public class CrypterReverse {
+class CrypterReverse extends CrypterClass{
+
+	public CrypterReverse(String key) {
+		super(key);
+	}
 
 }

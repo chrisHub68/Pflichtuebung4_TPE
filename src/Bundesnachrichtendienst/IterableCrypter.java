@@ -1,5 +1,9 @@
 package Bundesnachrichtendienst;
 
-public class IterableCrypter {
+class IterableCrypter extends CrypterClass{
+
+	public IterableCrypter(String key) {
+		super(key);
+	}
 
 }

@@ -1,5 +1,9 @@
 package Bundesnachrichtendienst;
 
-public class CrypterSubstitution {
+ class CrypterSubstitution extends CrypterClass {
+
+	public CrypterSubstitution(String key) {
+		super(key);
+	}
 
 }
