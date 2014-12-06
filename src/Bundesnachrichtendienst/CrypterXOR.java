@@ -1,62 +1,70 @@
 package Bundesnachrichtendienst;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CrypterXOR extends CrypterClass {
 
-	// Schl�ssel
+	// Schlï¿½ssel Array
 	String[] secretKey;
-	// Alphabet
+	// Alphabet Array
 	String[] plainText;
-
+	// ASCII Code von A bis 32. Zeichen
+	String[] myASCII;
+	
+	
 	public CrypterXOR(String key) {
 		super(key);
 		this.secretKey = putSecretKey(key);
-		this.plainText = alphabetArray();
+		this.plainText = generateASCII(26);
+		this.myASCII = generateASCII(32);
+
 	}
 
 	@Override
 	public String encrypt(String message) throws CrypterException {
+		System.out.println();
+		
 		String encryptedMessage = "";
 
-		// Verschlüsselt jeden einzelnen Buchstaben der Eingabe
+		// VerschlÃ¼sselt jeden einzelnen Buchstaben der Eingabe
 		for (int i = 0; i < message.length(); i++) {
 			// Sucht Buchstaben und seinen Index im Alphabet
 			for (int j = 0; j < 26; j++) {
 				if (message.charAt(i) == plainText[j].charAt(0)) {
-					encryptedMessage += "" + xorChar(j);     ////
+					encryptedMessage += "" + xorChar(j); // //
 				}
 			}
 
 		}
+		System.out.println();
 		return encryptedMessage;
 	}
-	
-	// Verschlüsselt ein Zeichen mit XOR
-	private char xorChar(int plainPosition){
-		char keyValue;
-		char plainValue = plainText[plainPosition].charAt(0);
+
+	// VerschlÃ¼sselt ein Zeichen mit XOR
+	private char xorChar(int index) {
+		
 		char cryptedChar;
-		int i = 0;
-		
-		// Zählt im Schlüssel bis zur entsprechenden Position hoch
-		while(i < plainPosition){
-			i++;
-		}
-	
-		keyValue = secretKey[i].charAt(0);
-		cryptedChar = (char) (plainValue ^ keyValue);
-		
+		// Wert des Zeichens an der Indexstelle im SchlüsselArray
+		char plainIndex = secretKey[index].charAt(0);
+		// Wert des Buchstabens an der Indexstelle im Alphabet
+		char keyIndex = plainText[index].charAt(0);
+		//XOR Verknüpfung
+		cryptedChar = myASCII[(keyIndex ^ plainIndex)-1].charAt(0);
+
 		return cryptedChar;
 	}
-	
-	
- 
 
 	@Override
 	public List<String> encrypt(List<String> messages) throws CrypterException {
-		// TODO Auto-generated method stub
-		return super.encrypt(messages);
+		List<String> encryptedMessages = new ArrayList<>();
+
+		for (String message : messages) {
+			// Füge jeden verschlüsselten String der Liste hinzu
+			encryptedMessages.add(encrypt(message));
+		}
+
+		return encryptedMessages;
 	}
 
 	@Override
@@ -72,38 +80,45 @@ class CrypterXOR extends CrypterClass {
 		return super.decrypt(cypherTexte);
 	}
 
-	private String[] alphabetArray() {
+	private String[] generateASCII(int length) {
 
-		String[] alphabet = new String[26];
+		String[] asciiCode = new String[length];
 		char letter = 'A';
 
-		for (int i = 0; i < 26; i++, letter++) {
-			alphabet[i] = "" + letter;
+		for (int i = 0; i < length; i++, letter++) {
+			asciiCode[i] = "" + letter;
+			
+			System.out.print(asciiCode[i]);
+			//System.out.print(asciiCode[i]);
 		}
-
-		return alphabet;
+System.out.println();
+		return asciiCode;
 	}
 
+
+	
 	private String[] putSecretKey(String key) {
 
 		String[] secretArray = new String[26];
-		String[] temp = new String[key.length()];
+		String[] temp = new String[50];
 		int j = 0;
 
-		// Füllt das Key Array
+		// Schreibt den Schlüssel in ein Array bis zur Länge 26
+		// Falls notwendig wird der Schlüssel wiederholt wenn key < 26
 		while (j < 26) {
 
-			// Durchläuft alle Buchstaben des Keys
+			// DurchlÃ¤uft alle Buchstaben des Keys
 			for (int i = 0; i < key.length(); i++) {
 				temp[j] = "" + key.charAt(i);
 				j++;
 			}
 
 		}
-		// Übertrage die ersten 26 Buchstaben aus dem Key in das SecretArray
+		// Ãœbertrage die ersten 26 Buchstaben aus dem Key in das SecretArray
 		for (int i = 0; i < 26; i++) {
 			secretArray[i] = temp[i];
 		}
+
 		return secretArray;
 	}
 

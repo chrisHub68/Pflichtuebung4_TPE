@@ -30,29 +30,12 @@ public class PreTest {
 		System.out.println(substitution.decrypt("YZABCP"));
 		
 		
-		Crypter XOR = CrypterFactory.createCrypter("URFVW", lolo);
+		Crypter XOR = CrypterFactory.createCrypter("BCDEFGHIJKLMNOPQRSTUVWXYZA", lolo);
+		
+		System.out.println(XOR.encrypt("HALLO"));
 		
 	
-		String[] secretArray = new String[26];
-		int j = 0;
-		String key = "URFVW";
-		
-		// Füllt das Key Array
-		while (j < 26) {
-		
-			// Durchläuft alle Buchstaben des Keys
-			for(int i = 0; i < key.length(); i++){
-				secretArray[j] = "" + key.charAt(i);
-				j++;
-				System.out.println(j);
-			}
-			
-		}
-			
-		for (int i = 0; i < 26; i++){
-			System.out.print(secretArray[i]);
-		}
-		 
+	
 		
 	}		
 	
