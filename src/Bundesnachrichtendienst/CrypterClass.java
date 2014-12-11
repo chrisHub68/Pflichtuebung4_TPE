@@ -3,10 +3,10 @@ package Bundesnachrichtendienst;
 import java.util.List;
 
 public abstract class CrypterClass implements Crypter {
-	
-	// Schlüssel
+
+	// Schlï¿½ssel
 	protected String key;
-	
+
 	public CrypterClass(String key) {
 		this.key = key;
 	}
@@ -36,5 +36,36 @@ public abstract class CrypterClass implements Crypter {
 		return null;
 	}
 
+	@Override
+	public void checkKey(String key, int length) throws IllegalKeyException {
+
+		for (int i = 0; i < key.length(); i++) {
+			if (key.charAt(i) < 'A' || key.charAt(i) > 'Z'
+					|| key.length() > length) {
+				throw new IllegalKeyException();
+			}
+
+		}
+	}
+
+	@Override
+	public String correctedMessage(String message) {
+		String correctedMessage = "";
+		
+		message = message.toUpperCase();
+		System.out.println(message);
+
+		// Schreibt nur die Zeichen der Message in den neuen String, die den Zeichen von 
+		// A bis Z entsprechen.
+		for (int i = 0; i < message.length(); i++) {
+			if(message.charAt(i) >= 'A' && message.charAt(i) <= 'Z'){
+				correctedMessage += "" + message.charAt(i);
+			}
+		}
 	
+		return correctedMessage;
+	}
+	
+	
+
 }

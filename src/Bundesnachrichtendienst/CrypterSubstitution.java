@@ -4,13 +4,14 @@ import java.util.List;
 
 class CrypterSubstitution extends CrypterClass {
 
-	// Schlüssel
+	// Schlï¿½ssel
 	String[] secretKey;
 	// Alphabet
 	String[] alphabet;
 
-	public CrypterSubstitution(String key) {
+	public CrypterSubstitution(String key) throws IllegalKeyException {
 		super(key);
+		checkKey(key, 26);
 		this.secretKey = secretKey(key);
 		this.alphabet = alphabetArray();
 	}
@@ -19,8 +20,8 @@ class CrypterSubstitution extends CrypterClass {
 	public String encrypt(String message) throws CrypterException {
 		String encryptedMessage = "";
 
-		// Durchläuft den String und vertauscht jeden Buchstaben gemäß seiner
-		// Postition im Schlüssel
+		// Durchlï¿½uft den String und vertauscht jeden Buchstaben gemï¿½ï¿½ seiner
+		// Postition im Schlï¿½ssel
 		for (int i = 0; i < message.length(); i++) {
 			encryptedMessage += secretKey[message.charAt(i) - 65];
 		}
@@ -39,7 +40,7 @@ class CrypterSubstitution extends CrypterClass {
 		String decryptedMessage = "";
 		String temp = "";
 
-		// Durchläuft den String und vertauscht jeden Buchstaben gemäß seiner
+		// Durchlï¿½uft den String und vertauscht jeden Buchstaben gemï¿½ï¿½ seiner
 		// Postition im Alphabet
 		for (int i = 0; i < cypherText.length(); i++) {
 			for (int j = 0; j < 26; j++) {
@@ -65,7 +66,7 @@ class CrypterSubstitution extends CrypterClass {
 	}
 
 	/**
-	 * Gibt ein String Array zurück, dass das Alphabet enthält
+	 * Gibt ein String Array zurï¿½ck, dass das Alphabet enthï¿½lt
 	 * 
 	 * @return String[]
 	 */
@@ -82,8 +83,8 @@ class CrypterSubstitution extends CrypterClass {
 	}
 
 	/**
-	 * Gibt ein String Array zurück, dass einen Schlüssel für die
-	 * Substitutionsverschlüsselung enthält
+	 * Gibt ein String Array zurï¿½ck, dass einen Schlï¿½ssel fï¿½r die
+	 * Substitutionsverschlï¿½sselung enthï¿½lt
 	 * 
 	 * @param secretKey
 	 * @return String[]

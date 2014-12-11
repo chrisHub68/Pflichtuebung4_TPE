@@ -12,9 +12,10 @@ class CrypterReverse extends CrypterClass{
 	@Override
 	public String encrypt(String message) throws CrypterException {
 		
+		message = correctedMessage(message);
 		String reverseMessage = "";
 		
-		// Durchläuft den String rückwärts und gibt ihn aus
+		// Durchlï¿½uft den String rï¿½ckwï¿½rts und gibt ihn aus
 		for(int i=message.length()-1; i>=0; i--){
 			reverseMessage += message.charAt(i);
 		}
@@ -38,6 +39,8 @@ class CrypterReverse extends CrypterClass{
 
 	@Override
 	public String decrypt(String cypherText) throws CrypterException {
+		
+		cypherText = correctedMessage(cypherText);
 		String decryptedMessage = encrypt(cypherText);
 		return decryptedMessage;
 	}

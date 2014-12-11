@@ -9,22 +9,24 @@ class CrypterXOR extends CrypterClass {
 	String[] secretKey;
 	// Alphabet Array
 	String[] plainText;
-	// ASCII Code von A bis 32. Zeichen
+	// ASCII Code von A bis ` (32 Zeichen)
 	String[] myASCII;
 	
 	
-	public CrypterXOR(String key) {
+	public CrypterXOR(String key) throws IllegalKeyException{
 		super(key);
+		checkKey(key,(int)Math.pow(2, 32));
 		this.secretKey = putSecretKey(key);
-		this.plainText = generateASCII(26);
-		this.myASCII = generateASCII(32);
+		this.plainText = generateASCII('A', 26);
+		this.myASCII = generateASCII('@' , 32);
+		
 
 	}
 
 	@Override
 	public String encrypt(String message) throws CrypterException {
-		System.out.println();
 		
+		message = correctedMessage(message);
 		String encryptedMessage = "";
 
 		// VerschlÃ¼sselt jeden einzelnen Buchstaben der Eingabe
@@ -32,12 +34,11 @@ class CrypterXOR extends CrypterClass {
 			// Sucht Buchstaben und seinen Index im Alphabet
 			for (int j = 0; j < 26; j++) {
 				if (message.charAt(i) == plainText[j].charAt(0)) {
-					encryptedMessage += "" + xorChar(j); // //
+					encryptedMessage += "" + xorChar(j); 
 				}
 			}
 
 		}
-		System.out.println();
 		return encryptedMessage;
 	}
 
@@ -50,11 +51,13 @@ class CrypterXOR extends CrypterClass {
 		// Wert des Buchstabens an der Indexstelle im Alphabet
 		char keyIndex = plainText[index].charAt(0);
 		//XOR Verknüpfung
-		cryptedChar = myASCII[(keyIndex ^ plainIndex)-1].charAt(0);
+		cryptedChar = myASCII[(keyIndex ^ plainIndex)].charAt(0);
 
 		return cryptedChar;
 	}
 
+	
+	
 	@Override
 	public List<String> encrypt(List<String> messages) throws CrypterException {
 		List<String> encryptedMessages = new ArrayList<>();
@@ -80,23 +83,21 @@ class CrypterXOR extends CrypterClass {
 		return super.decrypt(cypherTexte);
 	}
 
-	private String[] generateASCII(int length) {
+	// generiert ein Array mit einer Zeichenfolge aus der ASCII Tabelle
+	private String[] generateASCII(char start, int length) {
 
 		String[] asciiCode = new String[length];
-		char letter = 'A';
+		char letter = start;
 
 		for (int i = 0; i < length; i++, letter++) {
 			asciiCode[i] = "" + letter;
-			
-			System.out.print(asciiCode[i]);
-			//System.out.print(asciiCode[i]);
 		}
-System.out.println();
+
 		return asciiCode;
 	}
 
 
-	
+	// schreibt den Schlüssel in ein Array
 	private String[] putSecretKey(String key) {
 
 		String[] secretArray = new String[26];

@@ -10,6 +10,7 @@ class CrypterNull extends CrypterClass {
 
 	@Override
 	public String encrypt(String message) throws CrypterException {
+		message = correctedMessage(message);
 		return message;
 	}
 
@@ -20,6 +21,7 @@ class CrypterNull extends CrypterClass {
 
 	@Override
 	public String decrypt(String cypherText) throws CrypterException {
+		cypherText = correctedMessage(cypherText);
 		return cypherText;
 	}
 

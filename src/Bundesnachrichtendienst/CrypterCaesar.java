@@ -5,12 +5,15 @@ import java.util.List;
 
 class CrypterCaesar extends CrypterClass {
 
-	public CrypterCaesar(String key) {
+	public CrypterCaesar(String key) throws IllegalKeyException{
 		super(key);
+		checkKey(key, 1);
 	}
 
 	public String encrypt(String message) throws CrypterException {
 		
+		message = correctedMessage(message);
+	
 		String encryptedMessage = "";
 		// Reduziere Key-Bereich auf 1-26
 		int index = this.key.charAt(0) - 64;
@@ -65,6 +68,8 @@ private String encryptRek(char character, int index){
 	}
 
 	public String decrypt(String message) throws CrypterException {
+		
+		message = correctedMessage(message);
 		
 		String decryptedMessage = "";
 		// Reduziere Key-Bereich auf 1-26

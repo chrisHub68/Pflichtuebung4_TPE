@@ -14,10 +14,11 @@ public class PreTest {
 		
 		
 		Crypter caesar = CrypterFactory.createCrypter("C", haha);
-		System.out.println(caesar.encrypt("CAESAR"));
-		System.out.println(caesar.decrypt("FDHVDU"));
 		
+		System.out.println(caesar.encrypt("caesar__") + " ");
+		//System.out.println(caesar.decrypt("FDHVDU"));
 		
+		/*
 		
 		Crypter reverse = CrypterFactory.createCrypter("gagagaga", jojo);
 		
@@ -30,11 +31,11 @@ public class PreTest {
 		System.out.println(substitution.decrypt("YZABCP"));
 		
 		
-		Crypter XOR = CrypterFactory.createCrypter("BCDEFGHIJKLMNOPQRSTUVWXYZA", lolo);
+		Crypter XOR = CrypterFactory.createCrypter("ABC", lolo);
 		
 		System.out.println(XOR.encrypt("HALLO"));
 		
-	
+	*/
 	
 		
 	}		
