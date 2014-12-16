@@ -11,53 +11,32 @@ class CrypterXOR extends CrypterClass {
 	String[] plainText;
 	// ASCII Code von A bis ` (32 Zeichen)
 	String[] myASCII;
+
 	
-	
-	public CrypterXOR(String key) throws IllegalKeyException{
+	public CrypterXOR(String key) throws IllegalKeyException {
 		super(key);
-		checkKey(key,(int)Math.pow(2, 32));
+		checkKey(key, (int) Math.pow(2, 32));
 		this.secretKey = putSecretKey(key);
 		this.plainText = generateASCII('A', 26);
-		this.myASCII = generateASCII('@' , 32);
-		
+		this.myASCII = generateASCII('@', 32);
 
 	}
 
 	@Override
 	public String encrypt(String message) throws CrypterException {
-		
+
 		message = correctedMessage(message);
 		String encryptedMessage = "";
 
 		// VerschlÃ¼sselt jeden einzelnen Buchstaben der Eingabe
 		for (int i = 0; i < message.length(); i++) {
-			// Sucht Buchstaben und seinen Index im Alphabet
-			for (int j = 0; j < 26; j++) {
-				if (message.charAt(i) == plainText[j].charAt(0)) {
-					encryptedMessage += "" + xorChar(j); 
-				}
-			}
 
+			encryptedMessage += ""
+					+ myASCII[secretKey[i].charAt(0) ^ message.charAt(i)];
 		}
 		return encryptedMessage;
 	}
 
-	// VerschlÃ¼sselt ein Zeichen mit XOR
-	private char xorChar(int index) {
-		
-		char cryptedChar;
-		// Wert des Zeichens an der Indexstelle im SchlüsselArray
-		char plainIndex = secretKey[index].charAt(0);
-		// Wert des Buchstabens an der Indexstelle im Alphabet
-		char keyIndex = plainText[index].charAt(0);
-		//XOR Verknüpfung
-		cryptedChar = myASCII[(keyIndex ^ plainIndex)].charAt(0);
-
-		return cryptedChar;
-	}
-
-	
-	
 	@Override
 	public List<String> encrypt(List<String> messages) throws CrypterException {
 		List<String> encryptedMessages = new ArrayList<>();
@@ -72,8 +51,10 @@ class CrypterXOR extends CrypterClass {
 
 	@Override
 	public String decrypt(String cypherText) throws CrypterException {
-		// TODO Auto-generated method stub
-		return super.decrypt(cypherText);
+
+		// XOR ist symmetrisch, also ist Entschlüsselung nur die Umkehrung von
+		// Verschlüsselung
+		return encrypt(cypherText);
 	}
 
 	@Override
@@ -95,7 +76,6 @@ class CrypterXOR extends CrypterClass {
 
 		return asciiCode;
 	}
-
 
 	// schreibt den Schlüssel in ein Array
 	private String[] putSecretKey(String key) {

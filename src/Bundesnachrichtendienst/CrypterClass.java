@@ -53,7 +53,6 @@ public abstract class CrypterClass implements Crypter {
 		String correctedMessage = "";
 		
 		message = message.toUpperCase();
-		System.out.println(message);
 
 		// Schreibt nur die Zeichen der Message in den neuen String, die den Zeichen von 
 		// A bis Z entsprechen.
