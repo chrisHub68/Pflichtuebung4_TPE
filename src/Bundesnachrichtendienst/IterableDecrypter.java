@@ -6,22 +6,24 @@ import java.util.*;
  * @author 
  *
  */
-public class IterableCrypter implements Iterable<String> {
-    
+public class IterableDecrypter implements Iterable<String> {
+
     private List<String> list;
 
     /**
-     * Konstruktor
+     * Konstruktor 
      * @param list
      * @param crypter
      * @throws CrypterException
      */
-    public IterableCrypter(Iterable<String> list, Crypter crypter)
+    public IterableDecrypter(Iterable<String> list, Crypter crypter)
             throws CrypterException {
-        //Direkt verschlüsseln 
-        this.list = crypter.encrypt(castIterableToList(list));
+        //Direkt entschlüsseln
+        this.list = crypter.decrypt(castIterableToList(list));
     }
+
     /**
+     * Methode zum Umwandeln von Iterable<String> in List<String>
      * @param rawList
      * @return
      * @throws CrypterException
@@ -30,7 +32,7 @@ public class IterableCrypter implements Iterable<String> {
             throws CrypterException {
 
         List<String> theList = new ArrayList<String>();
-        //Alle Element in die Neue Liste schreiben
+        //Alle Elemente in neue Liste schreiben
         for (String string : rawList) {
             theList.add(string);
         }
@@ -47,7 +49,7 @@ public class IterableCrypter implements Iterable<String> {
         // // Alle Elemente verschlüsseln
         // list.forEach(action);
         // return list.iterator();
-        return list.listIterator();
+        return list.iterator();
     }
 
 }
