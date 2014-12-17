@@ -12,11 +12,11 @@ public class PreTest {
 		CrypterFactory.CrypterType bobo = CrypterFactory.CrypterType.SUBSTITUTION;
 		CrypterFactory.CrypterType lolo = CrypterFactory.CrypterType.XOR;
 
-		
 		/*
+		
 		Crypter caesar = CrypterFactory.createCrypter("C", haha);
 		
-		System.out.println(caesar.encrypt("caesar__") + " ");
+		System.out.println(caesar.encrypt("HALLO") + " ");
 		//System.out.println(caesar.decrypt("FDHVDU"));
 		
 		
@@ -26,9 +26,10 @@ public class PreTest {
 		System.out.println(reverse.encrypt("ABCDEFG"));
 		System.out.println(reverse.decrypt("GFEDCBA"));
 		
+	
 														//	 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 		Crypter substitution = CrypterFactory.createCrypter("YZABCDEFGHIJKLMNOPQRSTUVWX", bobo);
-		System.out.println(substitution.encrypt("MUSTAFA"));
+		System.out.println(substitution.encrypt("HALLO"));
 		System.out.println(substitution.decrypt("YZABCP"));
 		
 		*/

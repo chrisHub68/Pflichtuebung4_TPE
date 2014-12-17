@@ -1,19 +1,27 @@
 package Bundesnachrichtendienst;
 
 import java.util.List;
-
+/**
+ * CrypterSubstitution vertauscht jeden Buchstaben einer Nachricht mit 
+ * einem Buchstaben aus dem Schlüssel. Jeder Buchstabe hat eine Position im 
+ * Alphabet, z.B.: hat 'HALLO' die Positionen 8,1,12,12,15. Ein Schlüssel z.B.:
+ * 'YZABCDEFGHIJKLMNOPQRSTUVWX' hat an den Stellen 8,1,12,12,15 die Buchstaben
+ * F,Y,J,J,M stehen, so wird aus 'HALLO' nach Substituionsverschlüsselung
+ * 'FYJJM'.
+ *
+ */
 class CrypterSubstitution extends CrypterClass {
 
 	// Schl�ssel
-	String[] secretKey;
+	private String[] secretKey;
 	// Alphabet
-	String[] alphabet;
+	private String[] alphabet;
 
 	public CrypterSubstitution(String key) throws IllegalKeyException {
 		super(key);
 		checkKey(key, 26);
 		this.secretKey = secretKey(key);
-		this.alphabet = alphabetArray();
+		this.alphabet = alphabet();
 	}
 
 	@Override
@@ -23,7 +31,8 @@ class CrypterSubstitution extends CrypterClass {
 		// Durchl�uft den String und vertauscht jeden Buchstaben gem�� seiner
 		// Postition im Schl�ssel
 		for (int i = 0; i < message.length(); i++) {
-			encryptedMessage += secretKey[message.charAt(i) - 65];
+			// Vertausche Buchstabe mit seiner Position im Schlüssel
+			encryptedMessage += secretKey[message.charAt(i) - 'A'];
 		}
 
 		return encryptedMessage;
@@ -70,7 +79,7 @@ class CrypterSubstitution extends CrypterClass {
 	 * 
 	 * @return String[]
 	 */
-	private String[] alphabetArray() {
+	private String[] alphabet() {
 
 		String[] alphabet = new String[26];
 		char letter = 'A';

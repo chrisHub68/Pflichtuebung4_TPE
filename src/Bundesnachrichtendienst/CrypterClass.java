@@ -1,7 +1,10 @@
 package Bundesnachrichtendienst;
 
 import java.util.List;
-
+/**
+ * CrypterClass ist eine abstrakte Oberklasse von allen Verschlüsselungsklassen
+ *
+ */
 public abstract class CrypterClass implements Crypter {
 
 	// Schl�ssel

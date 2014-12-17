@@ -2,7 +2,10 @@ package Bundesnachrichtendienst;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * CrypterReverse gibt das Inverse einer Nachricht aus.
+ * Der Schlüssel ist für CrypterReverse irrelevant.
+ */
 class CrypterReverse extends CrypterClass{
 
 	public CrypterReverse(String key) {
@@ -15,7 +18,7 @@ class CrypterReverse extends CrypterClass{
 		message = correctedMessage(message);
 		String reverseMessage = "";
 		
-		// Durchl�uft den String r�ckw�rts und gibt ihn aus
+		// Durchl�uft den String r�ckw�rts und gibt ihn zurück
 		for(int i=message.length()-1; i>=0; i--){
 			reverseMessage += message.charAt(i);
 		}

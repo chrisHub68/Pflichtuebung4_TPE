@@ -1,5 +1,9 @@
 package Bundesnachrichtendienst;
-
+/**
+ * Die Exception IllegalKeyException wird ausgegeben wenn ein 
+ * Schlüssel nicht seiner Vorschrift entspricht.
+ *
+ */
 public class IllegalKeyException extends CrypterException {
 
 	public IllegalKeyException() {

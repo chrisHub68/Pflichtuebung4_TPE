@@ -1,7 +1,11 @@
 package Bundesnachrichtendienst;
 
 import java.util.List;
-
+/**
+ * CrypterNull macht nichts, d.h. die Nachricht wird so ausgegeben wie sie
+ * eingegeben wurde. Der Schlüssel ist für CrypterNull irrelevant.
+ * 
+ */
 class CrypterNull extends CrypterClass {
 
 	public CrypterNull(String key) {

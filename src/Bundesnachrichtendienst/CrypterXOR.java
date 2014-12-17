@@ -2,22 +2,22 @@ package Bundesnachrichtendienst;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 
+ *
+ */
 class CrypterXOR extends CrypterClass {
 
 	// Schlï¿½ssel Array
-	String[] secretKey;
-	// Alphabet Array
-	String[] plainText;
+	private String[] secretKey;
 	// ASCII Code von A bis ` (32 Zeichen)
-	String[] myASCII;
+	private String[] myASCII;
 
 	
 	public CrypterXOR(String key) throws IllegalKeyException {
 		super(key);
 		checkKey(key, (int) Math.pow(2, 32));
 		this.secretKey = putSecretKey(key);
-		this.plainText = generateASCII('A', 26);
 		this.myASCII = generateASCII('@', 32);
 
 	}
@@ -28,9 +28,10 @@ class CrypterXOR extends CrypterClass {
 		message = correctedMessage(message);
 		String encryptedMessage = "";
 
-		// VerschlÃ¼sselt jeden einzelnen Buchstaben der Eingabe
+		// Durchläuft alle Buchstaben des Klartextes
 		for (int i = 0; i < message.length(); i++) {
 
+			//XOR Verknüpfung Key mit Klartext
 			encryptedMessage += ""
 					+ myASCII[secretKey[i].charAt(0) ^ message.charAt(i)];
 		}
@@ -52,16 +53,22 @@ class CrypterXOR extends CrypterClass {
 	@Override
 	public String decrypt(String cypherText) throws CrypterException {
 
-		// XOR ist symmetrisch, also ist Entschlüsselung nur die Umkehrung von
-		// Verschlüsselung
+		// XOR ist symmetrisch, also ist Entschlüsselung die Verschlüsselung 
+		// des verschlüsselten Textes
 		return encrypt(cypherText);
 	}
 
 	@Override
 	public List<String> decrypt(List<String> cypherTexte)
 			throws CrypterException {
-		// TODO Auto-generated method stub
-		return super.decrypt(cypherTexte);
+		List<String> decryptedMessages = new ArrayList<>();
+
+		for (String message : cypherTexte) {
+			// Füge jeden entschlüsselten String der Liste hinzu
+			decryptedMessages.add(encrypt(message));
+		}
+
+		return decryptedMessages;
 	}
 
 	// generiert ein Array mit einer Zeichenfolge aus der ASCII Tabelle
