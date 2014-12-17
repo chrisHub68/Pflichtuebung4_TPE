@@ -3,119 +3,151 @@ package Bundesnachrichtendienst;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Caesar Verschlüsselung ordnet jedem Buchstaben im Alphabet Zahlen zu (1-26)
+ * und addiert die Wertigkeit eines Schlüssels zu jedem Buchstaben in einer
+ * Nachricht dazu. Beim Schlüssel C (Wertigkeit von C = 3) wird jeder Buchstabe
+ * in einer Nachricht um 3 verschoben. So wird aus 'HALLO' mit Schlüssel = C
+ * 'KDOOR'
+ * 
+ */
 class CrypterCaesar extends CrypterClass {
+    /**
+     * Konstruktor
+     * 
+     * @param key
+     */
+    public CrypterCaesar(String key) throws IllegalKeyException {
+        super(key);
+        checkKey(key, 1);
+    }
 
-	public CrypterCaesar(String key) {
-		super(key);
-	}
+    /**
+     * Methode zum Verschlüsseln der Message
+     * 
+     * @param message
+     */
+    public String encrypt(String message) throws CrypterException {
 
-	public String encrypt(String message) throws CrypterException {
-		
-		String encryptedMessage = "";
-		// Reduziere Key-Bereich auf 1-26
-		int index = this.key.charAt(0) - 64;
+        message = correctedMessage(message);
 
-		// Jeden Buchstaben des Strings verschlüsseln
-		for (int i = 0; i < message.length(); i++) {
-					encryptedMessage += encryptRek(message.charAt(i), index);
-			}
-		
-		return encryptedMessage;
-}
+        String encryptedMessage = "";
+        // Reduziere Key-Bereich auf 1-26
+        int index = this.key.charAt(0) - 64;
 
+        // Jeden Buchstaben des Strings verschlüsseln
+        for (int i = 0; i < message.length(); i++) {
+            encryptedMessage += encryptRek(message.charAt(i), index);
+        }
 
-// Rekursive Methode zur Verschiebung der Buchstaben
-private String encryptRek(char character, int index){
-	
-	String temporary = "";
-	
-	// Verschiebung der Buchstaben ohne Überlauf 
-	if((character + index <= 'Z') ){
-		return temporary += (char)(character + index);
+        return encryptedMessage;
+    }
 
-	// Verschiebung der Buchstaben mit Überluaf
-	} else {
-		
-		do{
-			// Zähle bis 'Z' hoch
-			character++ ;
-			
-			// Reduziere Verschiebung
-			index--;
-			
-		}while(character != 'Z');
-		
-		// Restliche Verschiebung an 'A' dranhängen
-		return encryptRek('A', index-1);
-	}
-	
-	
-}
+    // Rekursive Methode zur Verschiebung der Buchstaben
+    private String encryptRek(char character, int index) {
 
-	public List<String> encrypt(List<String> messages) throws CrypterException {
-		List<String> encryptedMessages = new ArrayList<>();
+        String temporary = "";
 
-		// Durchlaufe alle Strings
-		for (String message : messages) {
-			// Füge jeden verschlüsselten String der Liste hinzu
-			encryptedMessages.add(encrypt(message));
-		}
+        // Verschiebung der Buchstaben ohne Überlauf
+        if ((character + index <= 'Z')) {
+            return temporary += (char) (character + index);
 
-		return encryptedMessages;
-	}
+            // Verschiebung der Buchstaben mit Überluaf
+        } else {
 
-	public String decrypt(String message) throws CrypterException {
-		
-		String decryptedMessage = "";
-		// Reduziere Key-Bereich auf 1-26
-		int index = this.key.charAt(0) - 64;
+            do {
+                // Zähle bis 'Z' hoch
+                character++;
 
-		// Jeden Buchstaben des Strings entschlüsseln
-		for (int i = 0; i < message.length(); i++) {
-			decryptedMessage += decryptRek(message.charAt(i), index);
-		}
-			
-		return decryptedMessage;
-	}
-	
-	
-	// Rekursive Methode zur Verschiebung der Buchstaben
-	private String decryptRek(char character, int index){
-		
-		String temporary = "";
-		
-		// Verschiebung der Buchstaben ohne Überlauf 
-		if((character - index >= 'A') ){
-			return temporary += (char)(character - index);
+                // Reduziere Verschiebung
+                index--;
 
-		// Verschiebung der Buchstaben mit Überluaf
-		} else {
-			
-			do{
-				// Zähle bis 'A' runter
-				character--;
-				
-				// Reduziere Verschiebung
-				index--;
-				
-			}while(character != 'A');
-			
-			// Restliche Verschiebung von 'Z' abziehen
-			return decryptRek('Z', index-1);
-		}
-		
-		
-	}	
+            } while (character != 'Z');
 
-	public List<String> decrypt(List<String> cypherMessages)
-			throws CrypterException
-	{
-		List<String> decryptedMessages = new ArrayList<>();
+            // Restliche Verschiebung an 'A' dranhängen
+            return encryptRek('A', index - 1);
+        }
 
-		for (String message : cypherMessages) {
-			decryptedMessages.add(decrypt(message));
-		}
+    }
 
-		return decryptedMessages;
-	}
+    /**
+     * Methode zum verschlüsseln der Liste
+     * 
+     * @param message
+     */
+    public List<String> encrypt(List<String> messages) throws CrypterException {
+        List<String> encryptedMessages = new ArrayList<>();
+
+        // Durchlaufe alle Strings
+        for (String message : messages) {
+            // Füge jeden verschlüsselten String der Liste hinzu
+            encryptedMessages.add(encrypt(message));
+        }
+
+        return encryptedMessages;
+    }
+
+    /**
+     * Methoe zum entschlüsseln der Message
+     * 
+     * @param message
+     */
+    public String decrypt(String message) throws CrypterException {
+
+        message = correctedMessage(message);
+
+        String decryptedMessage = "";
+        // Reduziere Key-Bereich auf 1-26
+        int index = this.key.charAt(0) - 64;
+
+        // Jeden Buchstaben des Strings entschlüsseln
+        for (int i = 0; i < message.length(); i++) {
+            decryptedMessage += decryptRek(message.charAt(i), index);
+        }
+
+        return decryptedMessage;
+    }
+
+    // Rekursive Methode zur Verschiebung der Buchstaben
+    private String decryptRek(char character, int index) {
+
+        String temporary = "";
+
+        // Verschiebung der Buchstaben ohne Überlauf
+        if ((character - index >= 'A')) {
+            return temporary += (char) (character - index);
+
+            // Verschiebung der Buchstaben mit Überluaf
+        } else {
+
+            do {
+                // Zähle bis 'A' runter
+                character--;
+
+                // Reduziere Verschiebung
+                index--;
+
+            } while (character != 'A');
+
+            // Restliche Verschiebung von 'Z' abziehen
+            return decryptRek('Z', index - 1);
+        }
+
+    }
+
+    /**
+     * Methode zum entschlüsseln der Liste
+     * 
+     * @param cypherMessages
+     */
+    public List<String> decrypt(List<String> cypherMessages)
+            throws CrypterException {
+        List<String> decryptedMessages = new ArrayList<>();
+        // Durchläuft alle "Wörter" der Liste
+        for (String message : cypherMessages) {
+            decryptedMessages.add(decrypt(message));
+        }
+
+        return decryptedMessages;
+    }
 }

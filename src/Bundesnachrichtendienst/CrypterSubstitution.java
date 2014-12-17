@@ -1,28 +1,38 @@
 package Bundesnachrichtendienst;
 
 import java.util.List;
-
+/**
+ * CrypterSubstitution vertauscht jeden Buchstaben einer Nachricht mit 
+ * einem Buchstaben aus dem SchlÃ¼ssel. Jeder Buchstabe hat eine Position im 
+ * Alphabet, z.B.: hat 'HALLO' die Positionen 8,1,12,12,15. Ein SchlÃ¼ssel z.B.:
+ * 'YZABCDEFGHIJKLMNOPQRSTUVWX' hat an den Stellen 8,1,12,12,15 die Buchstaben
+ * F,Y,J,J,M stehen, so wird aus 'HALLO' nach SubstituionsverschlÃ¼sselung
+ * 'FYJJM'.
+ *
+ */
 class CrypterSubstitution extends CrypterClass {
 
-	// Schlüssel
-	String[] secretKey;
+	// Schlï¿½ssel
+	private String[] secretKey;
 	// Alphabet
-	String[] alphabet;
+	private String[] alphabet;
 
-	public CrypterSubstitution(String key) {
+	public CrypterSubstitution(String key) throws IllegalKeyException {
 		super(key);
+		checkKey(key, 26);
 		this.secretKey = secretKey(key);
-		this.alphabet = alphabetArray();
+		this.alphabet = alphabet();
 	}
 
 	@Override
 	public String encrypt(String message) throws CrypterException {
 		String encryptedMessage = "";
 
-		// Durchläuft den String und vertauscht jeden Buchstaben gemäß seiner
-		// Postition im Schlüssel
+		// Durchlï¿½uft den String und vertauscht jeden Buchstaben gemï¿½ï¿½ seiner
+		// Postition im Schlï¿½ssel
 		for (int i = 0; i < message.length(); i++) {
-			encryptedMessage += secretKey[message.charAt(i) - 65];
+			// Vertausche Buchstabe mit seiner Position im SchlÃ¼ssel
+			encryptedMessage += secretKey[message.charAt(i) - 'A'];
 		}
 
 		return encryptedMessage;
@@ -39,7 +49,7 @@ class CrypterSubstitution extends CrypterClass {
 		String decryptedMessage = "";
 		String temp = "";
 
-		// Durchläuft den String und vertauscht jeden Buchstaben gemäß seiner
+		// DurchlÃ¤uft den String und vertauscht jeden Buchstaben gemÃ¤ÃŸ seiner
 		// Postition im Alphabet
 		for (int i = 0; i < cypherText.length(); i++) {
 			for (int j = 0; j < 26; j++) {
@@ -65,11 +75,11 @@ class CrypterSubstitution extends CrypterClass {
 	}
 
 	/**
-	 * Gibt ein String Array zurück, dass das Alphabet enthält
+	 * Gibt ein String Array zurÃ¼ck, dass das Alphabet enthÃ¤lt
 	 * 
 	 * @return String[]
 	 */
-	private String[] alphabetArray() {
+	private String[] alphabet() {
 
 		String[] alphabet = new String[26];
 		char letter = 'A';
@@ -82,8 +92,8 @@ class CrypterSubstitution extends CrypterClass {
 	}
 
 	/**
-	 * Gibt ein String Array zurück, dass einen Schlüssel für die
-	 * Substitutionsverschlüsselung enthält
+	 * Gibt ein String Array zurÃ¼ck, dass einen SchlÃ¼ssel fÃ¼r die
+	 * SubstitutionsverschlÃ¼sselung enthÃ¤lt
 	 * 
 	 * @param secretKey
 	 * @return String[]
@@ -91,6 +101,7 @@ class CrypterSubstitution extends CrypterClass {
 	private String[] secretKey(String secretKey) {
 
 		String[] secretArray = new String[26];
+		//Alle Werte durchlaufen und anhÃ¤ngen 
 		for (int i = 0; i < 26; i++) {
 			secretArray[i] = "" + secretKey.charAt(i);
 		}

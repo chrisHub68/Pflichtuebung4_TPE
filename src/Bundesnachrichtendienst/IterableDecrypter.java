@@ -1,29 +1,33 @@
 package Bundesnachrichtendienst;
 
 import java.util.*;
+
 /**
+ * Implemntiert das Interface Iterable zur entschlüsselung und erzeugung eines
+ * Iterator
  * 
- * @author 
- *
+ * @author TPE Gruppe 14
  */
 public class IterableDecrypter implements Iterable<String> {
 
     private List<String> list;
 
     /**
-     * Konstruktor 
+     * Konstruktor
+     * 
      * @param list
      * @param crypter
      * @throws CrypterException
      */
     public IterableDecrypter(Iterable<String> list, Crypter crypter)
             throws CrypterException {
-        //Direkt entschlüsseln
+        // Direkt entschlüsseln
         this.list = crypter.decrypt(castIterableToList(list));
     }
 
     /**
      * Methode zum Umwandeln von Iterable<String> in List<String>
+     * 
      * @param rawList
      * @return
      * @throws CrypterException
@@ -32,14 +36,16 @@ public class IterableDecrypter implements Iterable<String> {
             throws CrypterException {
 
         List<String> theList = new ArrayList<String>();
-        //Alle Elemente in neue Liste schreiben
+        // Alle Elemente in neue Liste schreiben
         for (String string : rawList) {
             theList.add(string);
         }
         return theList;
     }
+
     /**
-     * Methode zum erzeugen des Iterators 
+     * Methode zum erzeugen des Iterators
+     * 
      * @return Iterator
      */
     @Override

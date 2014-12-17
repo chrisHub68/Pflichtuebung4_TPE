@@ -18,56 +18,78 @@ import java.util.List;
  * @author Thomas Smits
  */
 public interface Crypter {
-    /**
-     * Verschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
-     *
-     * @param message
-     *            Nachricht, die Verschlüsselt werden soll.
-     *
-     * @return verschlüsselter Text.
-     * @throws CrypterException
-     *             Wird geworfen, wenn Probleme mit der Verschlüsselung
-     *             auftreten.
-     */
-    public String encrypt(String message) throws CrypterException;
+	/**
+	 * Verschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
+	 *
+	 * @param message
+	 *            Nachricht, die Verschlüsselt werden soll.
+	 *
+	 * @return verschlüsselter Text.
+	 * @throws CrypterException
+	 *             Wird geworfen, wenn Probleme mit der Verschlüsselung
+	 *             auftreten.
+	 */
+	public String encrypt(String message) throws CrypterException;
 
-    /**
-     * Verschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
-     *
-     * @param messages
-     *            Nachrichten, die Verschlüsselt werden soll.
-     *
-     * @return verschlüsselte Texte.
-     * @throws CrypterException
-     *             Wird geworfen, wenn Probleme mit der Verschlüsselung
-     *             auftreten.
-     */
-    public List<String> encrypt(List<String> messages) throws CrypterException;
+	/**
+	 * Verschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
+	 *
+	 * @param messages
+	 *            Nachrichten, die Verschlüsselt werden soll.
+	 *
+	 * @return verschlüsselte Texte.
+	 * @throws CrypterException
+	 *             Wird geworfen, wenn Probleme mit der Verschlüsselung
+	 *             auftreten.
+	 */
+	public List<String> encrypt(List<String> messages) throws CrypterException;
 
-    /**
-     * Entschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
-     *
-     * @param cypherText
-     *            Nachricht, die entschlüsselt werden soll.
-     *
-     * @return entschlüsselter Text.
-     * @throws CrypterException
-     *             Wird geworfen, wenn Probleme mit der Verschlüsselung
-     *             auftreten.
-     */
-    public String decrypt(String cypherText) throws CrypterException;
+	/**
+	 * Entschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
+	 *
+	 * @param cypherText
+	 *            Nachricht, die entschlüsselt werden soll.
+	 *
+	 * @return entschlüsselter Text.
+	 * @throws CrypterException
+	 *             Wird geworfen, wenn Probleme mit der Verschlüsselung
+	 *             auftreten.
+	 */
+	public String decrypt(String cypherText) throws CrypterException;
 
-    /**
-     * Entschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
-     *
-     * @param CypherMessages
-     *            Nachrichten, die entschlüsselt werden soll.
-     *
-     * @return entschlüsselte Texte.
-     * @throws CrypterException
-     *             Wird geworfen, wenn Probleme mit der Verschlüsselung
-     *             auftreten.
-     */
-    public List<String> decrypt(List<String> CypherMessages)
-            throws CrypterException;
+	/**
+	 * Entschlüsselt den gegebenen Text mit dem angegebenen Schlüssel.
+	 *
+	 * @param CypherMessages
+	 *            Nachrichten, die entschlüsselt werden soll.
+	 *
+	 * @return entschlüsselte Texte.
+	 * @throws CrypterException
+	 *             Wird geworfen, wenn Probleme mit der Verschlüsselung
+	 *             auftreten.
+	 */
+	public List<String> decrypt(List<String> CypherMessages)
+			throws CrypterException;
+
+	/**
+	 * Wirft eine Exception falls ein Schlüssel ungültig ist.
+	 * 
+	 * @param key
+	 * @param start
+	 * @param end
+	 * @param length
+	 * @throws IllegalKeyException
+	 *             Wird geworfen, wenn Probleme mit der Verschlüsselung
+	 *             auftreten.
+	 */
+	public void checkKey(String key, int length) throws IllegalKeyException;
+
+	/**
+	 * Wandelt alle Buchstaben in einem String zu Großbuchstaben um. Zeichen die
+	 * nicht den Zeichen A bis Z entsprechen werden entfernt.
+	 * 
+	 * @param message
+	 * @return neuer korrigierter String
+	 */
+	public String correctedMessage(String message);
 }
