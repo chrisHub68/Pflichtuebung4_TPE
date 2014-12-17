@@ -24,7 +24,7 @@ public class PreTest {
 		System.out.println(reverse.encrypt("ABCDEFG"));
 		System.out.println(reverse.decrypt("GFEDCBA"));
 		
-														//	 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		//	 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 		Crypter substitution = CrypterFactory.createCrypter("YZABCDEFGHIJKLMNOPQRSTUVWX", bobo);
 		System.out.println(substitution.encrypt("MUSTAFA"));
 		System.out.println(substitution.decrypt("YZABCP"));
